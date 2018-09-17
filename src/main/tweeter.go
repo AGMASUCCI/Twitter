@@ -17,6 +17,9 @@ func main() {
 		Help: "Publishes a tweet",
 		Func: func(c *ishell.Context) {
 
+			// Initialization
+			tweetManager := service.NewTweetManager()
+
 			defer c.ShowPrompt(true)
 
 			c.Print("Type your username:")
@@ -29,7 +32,7 @@ func main() {
 
 			tweet := domain.NewTweet(user, text)
 
-			service.PublishTweet(tweet)
+			tweetManager.PublishTweet(tweet)
 
 			c.Print("Tweet sent\n")
 
@@ -42,9 +45,12 @@ func main() {
 		Help: "Shows a tweet",
 		Func: func(c *ishell.Context) {
 
+			// Initialization
+			tweetManager := service.NewTweetManager()
+
 			defer c.ShowPrompt(true)
 
-			tweet := service.GetTweet()
+			tweet := tweetManager.GetTweet()
 
 			c.Println(tweet)
 
